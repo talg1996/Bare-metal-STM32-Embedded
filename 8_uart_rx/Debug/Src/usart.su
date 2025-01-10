@@ -1,0 +1,6 @@
+../Src/usart.c:11:6:usart3_init	8	static
+../Src/usart.c:40:6:usart_read	4	static
+../Src/usart.c:47:6:usart_write	16	static
+../Src/usart.c:53:13:usart_set_baudrate	24	static
+../Src/usart.c:57:17:compte_uart_baudrate	16	static
+../Src/usart.c:61:5:__io_putchar	16	static
