@@ -33,15 +33,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_macro  00025a86  00000000  00000000  00004c02  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line   00001a07  00000000  00000000  0002a688  2**0
+ 15 .debug_line   00001a0a  00000000  00000000  0002a688  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_str    000d4fc2  00000000  00000000  0002c08f  2**0
+ 16 .debug_str    000d4fc2  00000000  00000000  0002c092  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .comment      00000043  00000000  00000000  00101051  2**0
+ 17 .comment      00000043  00000000  00000000  00101054  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  00000bc8  00000000  00000000  00101094  2**2
+ 18 .debug_frame  00000bc8  00000000  00000000  00101098  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line_str 00000071  00000000  00000000  00101c5c  2**0
+ 19 .debug_line_str 00000071  00000000  00000000  00101c60  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -147,15 +147,15 @@ int main(void) {
 
 	usart3_init();
  80003b6:	f000 f8d9 	bl	800056c <usart3_init>
-
-	RCC->AHB4ENR |= (1u << 4);
+		//Enable GPIOE
+		RCC->AHB4ENR |= (1u << 4);
  80003ba:	4b17      	ldr	r3, [pc, #92]	@ (8000418 <main+0x68>)
  80003bc:	f8d3 30e0 	ldr.w	r3, [r3, #224]	@ 0xe0
  80003c0:	4a15      	ldr	r2, [pc, #84]	@ (8000418 <main+0x68>)
  80003c2:	f043 0310 	orr.w	r3, r3, #16
  80003c6:	f8c2 30e0 	str.w	r3, [r2, #224]	@ 0xe0
 
-		//Set pin mode as output
+		//Set LED pin mode as output
 		GPIOE->MODER &= ~(1U << 3);
  80003ca:	4b14      	ldr	r3, [pc, #80]	@ (800041c <main+0x6c>)
  80003cc:	681b      	ldr	r3, [r3, #0]
@@ -170,9 +170,9 @@ int main(void) {
  80003da:	4a10      	ldr	r2, [pc, #64]	@ (800041c <main+0x6c>)
  80003dc:	f043 0302 	orr.w	r3, r3, #2
  80003e0:	6153      	str	r3, [r2, #20]
-char c;
+	char c; // Store user keyboard press from PC
 	while (1) {
-
+		//Wait until the receive buffer is not empty due a user PC keypress
 		c=usart_read();
  80003e2:	f000 f925 	bl	8000630 <usart_read>
  80003e6:	4603      	mov	r3, r0
@@ -181,6 +181,7 @@ char c;
  80003ea:	79fb      	ldrb	r3, [r7, #7]
  80003ec:	2b31      	cmp	r3, #49	@ 0x31
  80003ee:	d106      	bne.n	80003fe <main+0x4e>
+			//Turn on LED
 			GPIOE->ODR |= (1U << 1);
  80003f0:	4b0a      	ldr	r3, [pc, #40]	@ (800041c <main+0x6c>)
  80003f2:	695b      	ldr	r3, [r3, #20]
@@ -189,6 +190,7 @@ char c;
  80003fa:	6153      	str	r3, [r2, #20]
  80003fc:	e005      	b.n	800040a <main+0x5a>
 		else
+			//Turn off LED
 			GPIOE->ODR &= ~(1U << 1);
  80003fe:	4b07      	ldr	r3, [pc, #28]	@ (800041c <main+0x6c>)
  8000400:	695b      	ldr	r3, [r3, #20]
@@ -491,7 +493,7 @@ void usart3_init(void) {
  8000592:	f423 2380 	bic.w	r3, r3, #262144	@ 0x40000
  8000596:	6013      	str	r3, [r2, #0]
 
-	//pin PD8 For USART3 set the ADR to 0111
+	//pin PD8 For USART3 set the AFR8 to "0111"
 	GPIOD->AFR[1] |= (1u << 0);
  8000598:	4b22      	ldr	r3, [pc, #136]	@ (8000624 <usart3_init+0xb8>)
  800059a:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
@@ -511,7 +513,7 @@ void usart3_init(void) {
  80005b6:	f043 0304 	orr.w	r3, r3, #4
  80005ba:	6253      	str	r3, [r2, #36]	@ 0x24
 
-	//pin PD9 For USART3 set the ADR to 0111
+	//pin PD9 For USART3 set the AFR9 to "0111"
 	GPIOD->AFR[1] |= (1u << 4);
  80005bc:	4b19      	ldr	r3, [pc, #100]	@ (8000624 <usart3_init+0xb8>)
  80005be:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
@@ -539,24 +541,29 @@ void usart3_init(void) {
  80005e8:	f443 2380 	orr.w	r3, r3, #262144	@ 0x40000
  80005ec:	f8c2 30e8 	str.w	r3, [r2, #232]	@ 0xe8
 
-
+	//Set USART3 baudrate
 	usart_set_baudrate(USART3,Pclk,9600);
  80005f0:	f44f 5216 	mov.w	r2, #9600	@ 0x2580
  80005f4:	490c      	ldr	r1, [pc, #48]	@ (8000628 <usart3_init+0xbc>)
  80005f6:	480d      	ldr	r0, [pc, #52]	@ (800062c <usart3_init+0xc0>)
  80005f8:	f000 f846 	bl	8000688 <usart_set_baudrate>
-	USART3->CR1=(1U<<3); //enable transmit
+
+	 //enable transmit
+	USART3->CR1=(1U<<3);
  80005fc:	4b0b      	ldr	r3, [pc, #44]	@ (800062c <usart3_init+0xc0>)
  80005fe:	2208      	movs	r2, #8
  8000600:	601a      	str	r2, [r3, #0]
-	USART3->CR1|=(1u<<2); //enable recive
+
+	//enable receive
+	USART3->CR1|=(1u<<2);
  8000602:	4b0a      	ldr	r3, [pc, #40]	@ (800062c <usart3_init+0xc0>)
  8000604:	681b      	ldr	r3, [r3, #0]
  8000606:	4a09      	ldr	r2, [pc, #36]	@ (800062c <usart3_init+0xc0>)
  8000608:	f043 0304 	orr.w	r3, r3, #4
  800060c:	6013      	str	r3, [r2, #0]
 
-	USART3->CR1|=(1U<<0); //Enable USART3
+	//Enable USART3
+	USART3->CR1|=(1U<<0);
  800060e:	4b07      	ldr	r3, [pc, #28]	@ (800062c <usart3_init+0xc0>)
  8000610:	681b      	ldr	r3, [r3, #0]
  8000612:	4a06      	ldr	r2, [pc, #24]	@ (800062c <usart3_init+0xc0>)
@@ -612,7 +619,7 @@ void usart_write(int ch)
  8000666:	f003 0380 	and.w	r3, r3, #128	@ 0x80
  800066a:	2b00      	cmp	r3, #0
  800066c:	d0f9      	beq.n	8000662 <usart_write+0xa>
-    USART3->TDR = ch & 0xFF; //Send only 1 byte
+    USART3->TDR = ch & 0xFF; 			//Send only 1 byte
  800066e:	687b      	ldr	r3, [r7, #4]
  8000670:	4a04      	ldr	r2, [pc, #16]	@ (8000684 <usart_write+0x2c>)
  8000672:	b2db      	uxtb	r3, r3

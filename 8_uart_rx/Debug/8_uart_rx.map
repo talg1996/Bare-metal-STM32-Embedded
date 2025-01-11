@@ -1163,12 +1163,12 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_macro   0x0002577d      0x23c ./Src/sysmem.o
  .debug_macro   0x000259b9       0xcd ./Src/usart.o
 
-.debug_line     0x00000000     0x1a07
- .debug_line    0x00000000      0x64e ./Src/main.o
- .debug_line    0x0000064e      0x83c ./Src/syscalls.o
- .debug_line    0x00000e8a      0x50d ./Src/sysmem.o
- .debug_line    0x00001397      0x5f5 ./Src/usart.o
- .debug_line    0x0000198c       0x7b ./Startup/startup_stm32h723zgtx.o
+.debug_line     0x00000000     0x1a0a
+ .debug_line    0x00000000      0x650 ./Src/main.o
+ .debug_line    0x00000650      0x83c ./Src/syscalls.o
+ .debug_line    0x00000e8c      0x50d ./Src/sysmem.o
+ .debug_line    0x00001399      0x5f6 ./Src/usart.o
+ .debug_line    0x0000198f       0x7b ./Startup/startup_stm32h723zgtx.o
 
 .debug_str      0x00000000    0xd4fc2
  .debug_str     0x00000000    0xd2d36 ./Src/main.o
