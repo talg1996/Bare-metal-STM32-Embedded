@@ -1,0 +1,8 @@
+/Users/tlgdsy/stm32 workspace bare metal course/CHEAP HEADERS/CMSIS/Include/core_cm7.h:1902:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
+../Src/usart.c:11:6:usart3_init	8	static
+../Src/usart.c:45:6:usart_read	4	static
+../Src/usart.c:52:6:usart_write	16	static
+../Src/usart.c:58:13:usart_set_baudrate	24	static
+../Src/usart.c:62:17:compte_uart_baudrate	16	static
+../Src/usart.c:66:5:__io_putchar	16	static
+../Src/usart.c:76:6:usart3_Rxinterrupt_init	8	static

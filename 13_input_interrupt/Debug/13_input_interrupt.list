@@ -238,6 +238,7 @@ void EXTI15_10_IRQHandler(void)
  80003f6:	f403 5300 	and.w	r3, r3, #8192	@ 0x2000
  80003fa:	2b00      	cmp	r3, #0
  80003fc:	d00c      	beq.n	8000418 <EXTI15_10_IRQHandler+0x34>
+
 	{
 		//Clear the interrupt
 		EXTI->PR1|=(1U<<13);
