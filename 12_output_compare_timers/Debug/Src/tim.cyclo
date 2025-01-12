@@ -1,0 +1,2 @@
+../Src/tim.c:12:7:tim2_1hz_init	1
+../Src/tim.c:29:6:tim12_1hz_init_output_compare_PA5	1

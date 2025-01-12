@@ -1312,14 +1312,14 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_macro   0x00001f17       0xc7 ./Src/tim.o
  .debug_macro   0x00001fde       0xcd ./Src/usart.o
 
-.debug_line     0x00000000     0x248b
- .debug_line    0x00000000      0x684 ./Src/main.o
- .debug_line    0x00000684      0x83c ./Src/syscalls.o
- .debug_line    0x00000ec0      0x50d ./Src/sysmem.o
- .debug_line    0x000013cd      0x568 ./Src/systick.o
- .debug_line    0x00001935      0x4e5 ./Src/tim.o
- .debug_line    0x00001e1a      0x5f6 ./Src/usart.o
- .debug_line    0x00002410       0x7b ./Startup/startup_stm32h723zgtx.o
+.debug_line     0x00000000     0x2489
+ .debug_line    0x00000000      0x682 ./Src/main.o
+ .debug_line    0x00000682      0x83c ./Src/syscalls.o
+ .debug_line    0x00000ebe      0x50d ./Src/sysmem.o
+ .debug_line    0x000013cb      0x568 ./Src/systick.o
+ .debug_line    0x00001933      0x4e5 ./Src/tim.o
+ .debug_line    0x00001e18      0x5f6 ./Src/usart.o
+ .debug_line    0x0000240e       0x7b ./Startup/startup_stm32h723zgtx.o
 
 .debug_str      0x00000000    0xd50dc
  .debug_str     0x00000000    0xd2db0 ./Src/main.o
