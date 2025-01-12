@@ -1,0 +1,2 @@
+../Src/systick.c:19:6:sysTickDelayMealy	24	static
+../Src/systick.c:40:6:sysTickDelayMicro	24	static
